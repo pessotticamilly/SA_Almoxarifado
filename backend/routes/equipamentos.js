@@ -27,4 +27,31 @@ router.post("/criar", (req, res) => {
     });
 });
 
+router.put("/editar/:id", (req, res) => {
+    const {id} = req.params;
+    const {nome, marca, patrimonio} = req.body;
+    const sql = `UPDATE equipamentos SET nome=?, marca=?, patrimonio=? WHERE id=?`;
+
+    connection.query(sql, [nome, marca, patrimonio, id], (error) => {
+        if (error) {
+            return res.status(500).json(error);
+        };
+
+        res.status(201).json({mensagem: "Equipamento cadastrado com sucesso!"});
+    });
+});
+
+router.delete("/excluir/:id", (req, res) => {
+    const {id} = req.params;
+    const sql = "DELETE FROM equipamentos WHERE id=?";
+
+    connection.query(sql, [id], (error) => {
+        if(error) {
+            return res.status(500).json(error);
+        };
+
+        res.status(201).json({mensagem: "Equipamento excluído com sucesso!"})
+    });
+});
+
 module.exports = router;
