@@ -14,6 +14,19 @@ router.get("/listarTodos", (req, res) => {
     });
 });
 
+router.get("/listar/:id", (req, res) => {
+    const {id} = req.params;
+    const sql = "SELECT * FROM equipamentos WHERE id=?";
+
+    connection.query(sql, [id], (error, result) => {
+        if(error) {
+            return res.status(500).json(error);
+        };
+
+        res.status(200).json(result);
+    });
+});
+
 router.post("/criar", (req, res) => {
     const {nome, marca, patrimonio} = req.body;
     const sql = "INSERT INTO equipamentos (nome, marca, patrimonio) VALUES (?, ?, ?)";
@@ -37,7 +50,7 @@ router.put("/editar/:id", (req, res) => {
             return res.status(500).json(error);
         };
 
-        res.status(201).json({mensagem: "Equipamento cadastrado com sucesso!"});
+        res.status(201).json({mensagem: "Equipamento atualizado com sucesso!"});
     });
 });
 
