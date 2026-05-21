@@ -28,13 +28,4 @@ router.post("/criar", (req, res) => {
     });
 });
 
-// http://localhost:3030/equipamentos/criar
-
-// {
-//     "nome": "Notebook",
-//     "marca": "Dell",
-//     "patrimonio": "EQ001"
-// }
-
-
 module.exports = router;
